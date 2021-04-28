@@ -1,0 +1,67 @@
+{
+   "name": "@dhruwlalan/opm",
+   "version": "1.0.0",
+   "description": "the only package manager you need to know",
+   "main": "lib/index.js",
+   "bin": {
+      "opm": "bin/opm.js"
+   },
+   "engines": {
+      "node": ">=10"
+   },
+   "files": [
+      "bin",
+      "lib"
+   ],
+   "publishConfig": {
+      "access": "public"
+   },
+   "repository": {
+      "type": "git",
+      "url": "https://github.com/dhruwlalan/opm.git"
+   },
+   "keywords": [
+      "npm",
+      "yarn",
+      "pnpm",
+      "cil",
+      "utility"
+   ],
+   "author": "dhruw lalan <dhruwlalan22@gmail.com>",
+   "license": "MIT",
+   "bugs": {
+      "url": "https://github.com/dhruwlalan/opm/issues"
+   },
+   "homepage": "https://github.com/dhruwlalan/opm#readme",
+   "scripts": {
+      "start": "babel --watch src --out-dir lib --extensions \".ts\"",
+      "build": "babel src --out-dir lib --extensions \".ts\"",
+      "prepublishOnly": "rimraf dist && npm run build",
+      "prepare": "types-sync"
+   },
+   "dependencies": {
+      "commander": "^7.2.0",
+      "execa": "^5.0.0",
+      "find-up": "^5.0.0",
+      "prompts": "^2.4.1",
+      "update-notifier": "^5.1.0"
+   },
+   "devDependencies": {
+      "@babel/cli": "^7.13.16",
+      "@babel/core": "^7.14.0",
+      "@babel/preset-env": "^7.14.0",
+      "@babel/preset-typescript": "^7.13.0",
+      "@types/node": "^15.0.1",
+      "@types/prompts": "^2.0.11",
+      "@types/update-notifier": "^5.0.0",
+      "@typescript-eslint/eslint-plugin": "^4.22.0",
+      "@typescript-eslint/parser": "^4.22.0",
+      "eslint": "^7.24.0",
+      "eslint-config-prettier": "^8.3.0",
+      "eslint-plugin-prettier": "^3.4.0",
+      "prettier": "^2.2.1",
+      "rimraf": "^3.0.2",
+      "types-sync": "^2.0.3",
+      "typescript": "^4.2.4"
+   }
+}
