@@ -1,0 +1,56 @@
+{
+   "name": "only-package-manager",
+   "version": "0.0.1",
+   "description": "the only package manager you need to know",
+   "main": "lib/index.js",
+   "bin": {
+      "opm": "bin/opm.js"
+   },
+   "engines": {
+      "node": ">=10"
+   },
+   "files": [
+      "bin",
+      "lib"
+   ],
+   "repository": {
+      "type": "git",
+      "url": "https://github.com/dhruwlalan/only-package-manager.git"
+   },
+   "keywords": [
+      "npm",
+      "yarn",
+      "pnpm",
+      "cil",
+      "utility"
+   ],
+   "author": "dhruw lalan <dhruwlalan22@gmail.com>",
+   "license": "MIT",
+   "bugs": {
+      "url": "https://github.com/dhruwlalan/only-package-manager/issues"
+   },
+   "homepage": "https://github.com/dhruwlalan/only-package-manager#readme",
+   "scripts": {
+      "start": "babel --watch src --out-dir lib --extensions \".ts\"",
+      "build": "babel src --out-dir lib --extensions \".ts\""
+   },
+   "dependencies": {
+      "@types/node": "^15.0.1",
+      "@types/update-notifier": "^5.0.0",
+      "commander": "^7.2.0",
+      "update-notifier": "^5.1.0"
+   },
+   "devDependencies": {
+      "@babel/cli": "^7.13.16",
+      "@babel/core": "^7.13.16",
+      "@babel/preset-env": "^7.13.15",
+      "@babel/preset-typescript": "^7.13.0",
+      "@typescript-eslint/eslint-plugin": "^4.22.0",
+      "@typescript-eslint/parser": "^4.22.0",
+      "eslint": "^7.24.0",
+      "eslint-config-prettier": "^8.3.0",
+      "eslint-plugin-prettier": "^3.4.0",
+      "prettier": "^2.2.1",
+      "typescript": "^4.2.4"
+   }
+}
