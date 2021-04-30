@@ -3,7 +3,8 @@ import { Agent, Command, AGENTS } from './agents';
 export default (agent: Agent, command: Command, args: string[] = []) => {
    if (!(agent in AGENTS)) throw new Error(`Unsupported agent "${agent}"`);
 
-   const c = AGENTS[agent][command];
+   const com = AGENTS[agent][command];
+   const c = com['cmd' as keyof typeof com];
 
    if (typeof c === 'function') return c(args);
 

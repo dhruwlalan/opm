@@ -6,16 +6,43 @@ const npmRun = (agent: string) => (args: string[]) => {
 
 export const AGENTS = {
    npm: {
-      install: 'npm install',
-      run: npmRun('npm'),
+      run: { cmd: npmRun('npm') },
+      install: { cmd: 'npm install' },
+      add: {
+         cmd: 'npm install {0}',
+         options: {
+            '-D': '--save-dev',
+            '-P': '--save-peer',
+            '-O': '--save-optional',
+            '-E': '--save-exact',
+         },
+      },
    },
    yarn: {
-      install: 'yarn install',
-      run: 'yarn run {0}',
+      run: { cmd: 'yarn run {0}' },
+      install: { cmd: 'yarn install' },
+      add: {
+         cmd: 'yarn add {0}',
+         options: {
+            '-D': '--dev',
+            '-P': '--peer',
+            '-O': '--optional',
+            '-E': '--exact',
+         },
+      },
    },
    pnpm: {
-      install: 'pnpm install',
-      run: npmRun('pnpm'),
+      run: { cmd: npmRun('pnpm') },
+      install: { cmd: 'pnpm install' },
+      add: {
+         cmd: 'pnpm add {0}',
+         options: {
+            '-D': '--save-dev',
+            '-P': '--save-peer',
+            '-O': '--save-optional',
+            '-E': '--save-exact',
+         },
+      },
    },
 };
 

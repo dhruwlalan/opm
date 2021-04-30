@@ -4,6 +4,7 @@ import updateNotifier from 'update-notifier';
 
 import { name, version } from '../package.json';
 import install, { InstallOptions } from './commands/install';
+import parseOptions from './utils/parseOptions';
 
 ///version///
 updateNotifier({
@@ -20,10 +21,13 @@ program.version(`${version}`, '-v, --version', 'output the current version');
 ///commands///
 program
    .command('i [packages...]')
-   .option('-d, -D', 'dev', false)
+   .option('-d, -D', 'devDependency', false)
+   .option('-p, -P', 'peerDependency', false)
+   .option('-o, -O', 'optionalDependency', false)
+   .option('-e, -E', 'exact', false)
    .description('test command')
    .action((packages: string[], options: InstallOptions) => {
-      install(packages, options);
+      install(packages, parseOptions(options));
    });
 program
    .command('default', { isDefault: true })
@@ -39,4 +43,4 @@ program
 
 ///help///
 program.parse();
-if (!program.args.length) install();
+if (!program.args.length) install([], []);
