@@ -4,6 +4,7 @@ import updateNotifier from 'update-notifier';
 
 import { name, version } from '../package.json';
 import install, { InstallOptions } from './commands/install';
+import frozen from './commands/frozen';
 import run from './commands/run';
 import parseOptions from './utils/parseOptions';
 
@@ -38,6 +39,10 @@ program
    .action((cmd: string, args: string[]) => {
       run(cmd, args);
    });
+program
+   .command('ci [args...]')
+   .description('clean install')
+   .action((args: string[]) => frozen(args));
 program
    .command('default', { isDefault: true })
    .arguments('[cmd] [args...]')

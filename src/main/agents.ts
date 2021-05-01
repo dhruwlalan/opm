@@ -11,6 +11,7 @@ export const AGENTS = {
    npm: {
       run: { cmd: npmRun('npm') },
       install: { cmd: 'npm install' },
+      frozen: { cmd: 'npm ci' },
       add: {
          cmd: 'npm install {0}',
          options: {
@@ -24,6 +25,7 @@ export const AGENTS = {
    yarn: {
       run: { cmd: npmRun('yarn') },
       install: { cmd: 'yarn install' },
+      frozen: { cmd: 'yarn install --frozen-lockfile' },
       add: {
          cmd: 'yarn add {0}',
          options: {
@@ -37,6 +39,7 @@ export const AGENTS = {
    pnpm: {
       run: { cmd: npmRun('pnpm') },
       install: { cmd: 'pnpm install' },
+      frozen: { cmd: 'pnpm install --frozen-lockfile' },
       add: {
          cmd: 'pnpm add {0}',
          options: {
@@ -61,21 +64,18 @@ export const LOCKS: Record<string, Agent> = {
 //       remove: 'npm r {0}',
 //       audit: 'npm audit {0}',
 //       outdated: 'npm outdated {0}',
-//       frozen: 'npm ci',
 //    },
 //    yarn: {
 //       update: 'yarn upgrade {0}',
 //       remove: 'yarn remove {0}',
 //       audit: 'yarn audit',
 //       outdated: 'yarn outdated',
-//       frozen: 'yarn install --frozen-lockfile',
 //    },
 //    pnpm: {
 //       update: 'pnpm update {0}',
 //       remove: 'pnpm remove {0}',
 //       audit: 'pnpm audit',
 //       outdated: 'pnpm outdated',
-//       frozen: 'pnpm install --frozen-lockfile',
 //    },
 // };
 
