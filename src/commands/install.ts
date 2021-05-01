@@ -8,6 +8,7 @@ export interface InstallOptions {
    P: boolean;
    O: boolean;
    E: boolean;
+   g: boolean;
 }
 
 export default async (packages: string[], options: string[]) => {
@@ -16,6 +17,13 @@ export default async (packages: string[], options: string[]) => {
 
    if (packages.length === 0 && options.length === 0) {
       const command = getCommand(agent, 'install', []);
+      await execa.command(command, { stdio: 'inherit' });
+      process.exit(0);
+   }
+
+   if (options.includes('-g')) {
+      const command = getCommand('npm', 'add', ['-g', ...packages]);
+      // console.log(command);
       await execa.command(command, { stdio: 'inherit' });
       process.exit(0);
    }

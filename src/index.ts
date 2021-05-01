@@ -4,6 +4,7 @@ import updateNotifier from 'update-notifier';
 
 import { name, version } from '../package.json';
 import install, { InstallOptions } from './commands/install';
+import remove, { RemoveOptions } from './commands/remove';
 import frozen from './commands/frozen';
 import run from './commands/run';
 import parseOptions from './utils/parseOptions';
@@ -27,6 +28,7 @@ program
    .option('-p, -P', 'peerDependency', false)
    .option('-o, -O', 'optionalDependency', false)
    .option('-e, -E', 'exact', false)
+   .option('-g', 'global', false)
    .description('test command')
    .action((packages: string[], options: InstallOptions) => {
       install(packages, parseOptions(options));
@@ -43,6 +45,13 @@ program
    .command('ci [args...]')
    .description('clean install')
    .action((args: string[]) => frozen(args));
+program
+   .command('r <packages...>')
+   .option('-g', 'global', false)
+   .description('remove command')
+   .action((packages: string[], options: RemoveOptions) => {
+      remove(packages, parseOptions(options));
+   });
 program
    .command('default', { isDefault: true })
    .arguments('[cmd] [args...]')
