@@ -1,7 +1,10 @@
 const npmRun = (agent: string) => (args: string[]) => {
-   if (args.length > 1)
+   if (agent === 'yarn' && args.length > 1) {
+      return `${agent} run ${args.join(' ')}`;
+   } else if (args.length > 1) {
       return `${agent} run ${args[0]} -- ${args.slice(1).join(' ')}`;
-   else return `${agent} run ${args[0]}`;
+   }
+   return `${agent} run ${args[0]}`;
 };
 
 export const AGENTS = {
@@ -19,7 +22,7 @@ export const AGENTS = {
       },
    },
    yarn: {
-      run: { cmd: 'yarn run {0}' },
+      run: { cmd: npmRun('yarn') },
       install: { cmd: 'yarn install' },
       add: {
          cmd: 'yarn add {0}',
@@ -46,11 +49,14 @@ export const AGENTS = {
    },
 };
 
+export const LOCKS: Record<string, Agent> = {
+   'pnpm-lock.yaml': 'pnpm',
+   'yarn.lock': 'yarn',
+   'package-lock.json': 'npm',
+};
+
 // export const AGENTS = {
 //    npm: {
-//       run: npmRun('npm'),
-//       install: 'npm install',
-//       add: 'npm install {0}',
 //       update: 'npm update {0}',
 //       remove: 'npm r {0}',
 //       audit: 'npm audit {0}',
@@ -58,9 +64,6 @@ export const AGENTS = {
 //       frozen: 'npm ci',
 //    },
 //    yarn: {
-//       run: 'yarn run {0}',
-//       install: 'yarn install',
-//       add: 'yarn add {0}',
 //       update: 'yarn upgrade {0}',
 //       remove: 'yarn remove {0}',
 //       audit: 'yarn audit',
@@ -68,9 +71,6 @@ export const AGENTS = {
 //       frozen: 'yarn install --frozen-lockfile',
 //    },
 //    pnpm: {
-//       run: npmRun('pnpm'),
-//       install: 'pnpm install',
-//       add: 'pnpm add {0}',
 //       update: 'pnpm update {0}',
 //       remove: 'pnpm remove {0}',
 //       audit: 'pnpm audit',
@@ -82,9 +82,3 @@ export const AGENTS = {
 export type Agent = keyof typeof AGENTS;
 export type Command = keyof typeof AGENTS.npm;
 export const agents = Object.keys(AGENTS) as Agent[];
-
-export const LOCKS: Record<string, Agent> = {
-   'pnpm-lock.yaml': 'pnpm',
-   'yarn.lock': 'yarn',
-   'package-lock.json': 'npm',
-};

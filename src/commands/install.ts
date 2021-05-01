@@ -22,8 +22,7 @@ export default async (packages: string[], options: string[]) => {
 
    const resolvedOptions = resolveOptions(agent, 'add', options);
    const command = getCommand(agent, 'add', [...resolvedOptions, ...packages]);
-   console.log(command);
-
-   // await execa.command(command, { stdio: 'inherit' });
+   // console.log(command);
+   await execa.command(command, { stdio: 'inherit' });
    process.exit(0);
 };
