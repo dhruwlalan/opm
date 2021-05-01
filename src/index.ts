@@ -5,6 +5,7 @@ import updateNotifier from 'update-notifier';
 import { name, version } from '../package.json';
 import install, { InstallOptions } from './commands/install';
 import remove, { RemoveOptions } from './commands/remove';
+import list, { ListOptions } from './commands/list';
 import frozen from './commands/frozen';
 import run from './commands/run';
 import parseOptions from './utils/parseOptions';
@@ -51,6 +52,13 @@ program
    .description('remove command')
    .action((packages: string[], options: RemoveOptions) => {
       remove(packages, parseOptions(options));
+   });
+program
+   .command('list  [args...]')
+   .option('-g', 'global', false)
+   .description('list command')
+   .action((args: string[], options: ListOptions) => {
+      list(args, parseOptions(options));
    });
 program
    .command('default', { isDefault: true })
