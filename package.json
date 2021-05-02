@@ -1,6 +1,6 @@
 {
    "name": "only-package-manager",
-   "version": "0.0.2",
+   "version": "0.1.0",
    "description": "the only package manager you need to know",
    "main": "lib/index.js",
    "bin": {
