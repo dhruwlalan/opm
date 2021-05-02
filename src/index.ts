@@ -32,18 +32,17 @@ program
    .option('-o, -O', 'optionalDependency', false)
    .option('-e, -E', 'exact', false)
    .option('-g', 'global', false)
-   .description('test command')
+   .description('install packages')
    .action((packages: string[], options: InstallOptions) => {
-      install(packages, parseOptions(options));
+      const parsedOptions = parseOptions(options, true);
+      install(packages, parsedOptions);
    });
 program
    .command('run')
-   .arguments('[cmd] [args...]')
-   .description('run main command')
+   .arguments('[script] [args...]')
+   .description('run scripts')
    .allowUnknownOption()
-   .action((cmd: string, args: string[]) => {
-      run(cmd, args);
-   });
+   .action((script: string, args: string[]) => run(script, args));
 program
    .command('ci [args...]')
    .description('clean install')
@@ -93,6 +92,6 @@ program
       run(cmd, args);
    });
 
-///help///
+///no command///
 program.parse();
 if (!program.args.length) install([], []);

@@ -1,10 +1,14 @@
-export default <T>(obj: T): string[] => {
-   const opt = Object.keys(obj)
-      .filter((o) => !!obj[o as keyof T])
+export default <T>(optionsObject: T, single = false): string[] => {
+   const optionsArray = Object.keys(optionsObject)
+      .filter((o) => !!optionsObject[o as keyof T])
       .map((o) => `-${o}`);
-   if (opt.length > 1) {
-      console.error('invalid options');
+
+   if (!single) return optionsArray;
+
+   if (optionsArray.length > 1) {
+      console.log('Invalid Options!');
       process.exit(1);
    }
-   return opt;
+
+   return optionsArray;
 };

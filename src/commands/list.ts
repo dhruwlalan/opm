@@ -1,5 +1,5 @@
-import execa from 'execa';
 import getPackageJson from '../utils/getPackageJson';
+import execute from '../utils/execute';
 
 export interface ListOptions {
    g: boolean;
@@ -29,8 +29,8 @@ export default async (args: string[], options: string[]) => {
          throw new Error(`invalid arguments: ${args.join(' ')}`);
 
       if (options.includes('-g')) {
-         await execa.command('npm list -g --depth=0', { stdio: 'inherit' });
-         process.exit(0);
+         const command = 'npm list -g --depth=0';
+         await execute(command);
       }
 
       const packageJson = getPackageJson();

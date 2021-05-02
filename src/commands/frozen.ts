@@ -1,6 +1,6 @@
-import execa from 'execa';
 import getAgent from '../main/getAgent';
 import getCommand from '../main/getCommand';
+import execute from '../utils/execute';
 
 export default async (args: string[]) => {
    try {
@@ -10,10 +10,7 @@ export default async (args: string[]) => {
       if (!agent) process.exit(0);
 
       const command = getCommand(agent, 'frozen', []);
-      // console.log(command);
-      await execa.command(command, { stdio: 'inherit' });
-
-      process.exit(0);
+      await execute(command);
    } catch (error) {
       console.log('error:', error.message);
       process.exit(1);

@@ -1,6 +1,6 @@
-import execa from 'execa';
 import getAgent from '../main/getAgent';
 import getCommand from '../main/getCommand';
+import execute from '../utils/execute';
 
 export interface OutdatedOptions {
    g: boolean;
@@ -12,13 +12,9 @@ export default async (packages: string[], options: string[]) => {
 
    if (options.includes('-g')) {
       const command = `npm outdated -g ${packages.join(' ')}`;
-      // console.log(command);
-      await execa.command(command, { stdio: 'inherit' });
-      process.exit(0);
+      await execute(command);
    }
 
    const command = getCommand(agent, 'outdated', packages);
-   // console.log(command);
-   await execa.command(command, { stdio: 'inherit' });
-   process.exit(0);
+   await execute(command);
 };

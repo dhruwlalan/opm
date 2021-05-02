@@ -1,5 +1,5 @@
-import execa from 'execa';
 import getAgent from '../main/getAgent';
+import execute from '../utils/execute';
 
 export default async (args: string[]) => {
    try {
@@ -12,19 +12,14 @@ export default async (args: string[]) => {
 
       if (!hasFix) {
          const command = `${agent} audit`;
-         // console.log(command);
-         await execa.command(command, { stdio: 'inherit' });
-         process.exit(0);
+         await execute(command);
       }
 
       if (hasFix && agent !== 'npm')
          throw new Error(`${agent} dose not contain fix command`);
 
       const command = 'npm audit fix';
-      // console.log(command);
-      await execa.command(command, { stdio: 'inherit' });
-
-      process.exit(0);
+      await execute(command);
    } catch (error) {
       console.log('ERROR:', error.message);
       process.exit(1);

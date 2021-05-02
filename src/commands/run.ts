@@ -1,8 +1,8 @@
-import execa from 'execa';
 import prompts from 'prompts';
 import getAgent from '../main/getAgent';
 import getCommand from '../main/getCommand';
 import getPackageJson from '../utils/getPackageJson';
+import execute from '../utils/execute';
 
 export default async (cmd: string, args: string[]) => {
    try {
@@ -39,8 +39,7 @@ export default async (cmd: string, args: string[]) => {
       }
 
       const command = getCommand(agent, 'run', [cmd, ...args]);
-      await execa.command(command, { stdio: 'inherit' });
-      process.exit(0);
+      await execute(command);
    } catch (error) {
       process.exit(1);
    }
