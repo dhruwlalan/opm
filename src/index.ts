@@ -1,4 +1,3 @@
-import './utils/info';
 import { program } from 'commander';
 import updateNotifier from 'update-notifier';
 import { name, version } from '../package.json';
@@ -9,6 +8,7 @@ import remove, { RemoveOptions } from './commands/remove';
 import list, { ListOptions } from './commands/list';
 import update, { UpdateOptions } from './commands/update';
 import outdated, { OutdatedOptions } from './commands/outdated';
+import audit from './commands/audit';
 import frozen from './commands/frozen';
 import run from './commands/run';
 
@@ -56,7 +56,7 @@ program
       remove(packages, parseOptions(options));
    });
 program
-   .command('list  [args...]')
+   .command('list [args...]')
    .option('-g', 'global', false)
    .description('list command')
    .action((args: string[], options: ListOptions) => {
@@ -76,6 +76,12 @@ program
    .description('outdated command')
    .action((packages: string[], options: OutdatedOptions) => {
       outdated(packages, parseOptions(options));
+   });
+program
+   .command('audit [args...]')
+   .description('audit command')
+   .action((args: string[]) => {
+      audit(args);
    });
 program
    .command('default', { isDefault: true })

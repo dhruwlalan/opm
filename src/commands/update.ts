@@ -1,4 +1,4 @@
-// import execa from 'execa';
+import execa from 'execa';
 import getAgent from '../main/getAgent';
 import getCommand from '../main/getCommand';
 import getPackageJson from '../utils/getPackageJson';
@@ -15,16 +15,16 @@ export default async (packages: string[], options: string[]) => {
 
    if (options.includes('-g')) {
       const command = `npm update -g ${packages.join(' ')}`;
-      console.log(command);
-      // await execa.command(command, { stdio: 'inherit' });
+      // console.log(command);
+      await execa.command(command, { stdio: 'inherit' });
       process.exit(0);
    }
 
    if (agent === 'npm') {
       if (!options.includes('-l') && packages.length === 0) {
          const command = `npm update`;
-         console.log(command);
-         // await execa.command(command, { stdio: 'inherit' });
+         // console.log(command);
+         await execa.command(command, { stdio: 'inherit' });
          process.exit(0);
       }
 
@@ -56,23 +56,23 @@ export default async (packages: string[], options: string[]) => {
          });
          if (depsCmd.length > 1) {
             const command = depsCmd.join(' ');
-            // await execa.command(command, { stdio: 'inherit' });
-            console.log(command);
+            // console.log(command);
+            await execa.command(command, { stdio: 'inherit' });
          }
          if (devCmd.length > 1) {
             const command = devCmd.join(' ');
-            // await execa.command(command, { stdio: 'inherit' });
-            console.log(command);
+            // console.log(command);
+            await execa.command(command, { stdio: 'inherit' });
          }
          if (optionalCmd.length > 1) {
             const command = optionalCmd.join(' ');
-            // await execa.command(command, { stdio: 'inherit' });
-            console.log(command);
+            // console.log(command);
+            await execa.command(command, { stdio: 'inherit' });
          }
          if (peerCmd.length > 1) {
             const command = peerCmd.join(' ');
-            // await execa.command(command, { stdio: 'inherit' });
-            console.log(command);
+            // console.log(command);
+            await execa.command(command, { stdio: 'inherit' });
          }
          process.exit(0);
       }
@@ -86,23 +86,23 @@ export default async (packages: string[], options: string[]) => {
          });
          if (depsCmd.length > 1) {
             const command = depsCmd.join(' ');
-            // await execa.command(command, { stdio: 'inherit' });
             console.log(command);
+            await execa.command(command, { stdio: 'inherit' });
          }
          if (devCmd.length > 1) {
             const command = devCmd.join(' ');
-            // await execa.command(command, { stdio: 'inherit' });
-            console.log(command);
+            // console.log(command);
+            await execa.command(command, { stdio: 'inherit' });
          }
          if (optionalCmd.length > 1) {
             const command = optionalCmd.join(' ');
-            // await execa.command(command, { stdio: 'inherit' });
-            console.log(command);
+            // console.log(command);
+            await execa.command(command, { stdio: 'inherit' });
          }
          if (peerCmd.length > 1) {
             const command = peerCmd.join(' ');
-            // await execa.command(command, { stdio: 'inherit' });
-            console.log(command);
+            // console.log(command);
+            await execa.command(command, { stdio: 'inherit' });
          }
          process.exit(0);
       }
@@ -110,26 +110,26 @@ export default async (packages: string[], options: string[]) => {
       if (deps.length > 0) {
          const depsL = deps.map((d) => `${d}@latest`);
          const command = [...depsCmd, ...depsL].join(' ');
-         // await execa.command(command, { stdio: 'inherit' });
-         console.log(command);
+         // console.log(command);
+         await execa.command(command, { stdio: 'inherit' });
       }
       if (devDeps.length > 0) {
          const devDepsL = devDeps.map((d) => `${d}@latest`);
          const command = [...devCmd, ...devDepsL].join(' ');
-         // await execa.command(command, { stdio: 'inherit' });
-         console.log(command);
+         // console.log(command);
+         await execa.command(command, { stdio: 'inherit' });
       }
       if (optionalDeps.length > 0) {
          const optionalDepsL = optionalDeps.map((d) => `${d}@latest`);
          const command = [...optionalCmd, ...optionalDepsL].join(' ');
-         // await execa.command(command, { stdio: 'inherit' });
-         console.log(command);
+         // console.log(command);
+         await execa.command(command, { stdio: 'inherit' });
       }
       if (peerDeps.length > 0) {
          const peerDepsL = peerDeps.map((d) => `${d}@latest`);
          const command = [...peerCmd, ...peerDepsL].join(' ');
-         // await execa.command(command, { stdio: 'inherit' });
-         console.log(command);
+         // console.log(command);
+         await execa.command(command, { stdio: 'inherit' });
       }
       process.exit(0);
    }
@@ -139,7 +139,7 @@ export default async (packages: string[], options: string[]) => {
       ...packages,
       ...resolvedOptions,
    ]);
-   console.log(command);
-   // await execa.command(command, { stdio: 'inherit' });
+   // console.log(command);
+   await execa.command(command, { stdio: 'inherit' });
    process.exit(0);
 };
