@@ -23,6 +23,7 @@ export const AGENTS = {
       },
       remove: { cmd: 'npm r {0}' },
       update: { cmd: 'npm update {0}' },
+      outdated: { cmd: 'npm outdated {0}' },
    },
    yarn: {
       run: { cmd: npmRun('yarn') },
@@ -42,6 +43,7 @@ export const AGENTS = {
          cmd: 'yarn upgrade {0}',
          options: { '-l': '--latest' },
       },
+      outdated: { cmd: 'yarn outdated {0}' },
    },
    pnpm: {
       run: { cmd: npmRun('pnpm') },
@@ -61,6 +63,7 @@ export const AGENTS = {
          cmd: 'pnpm update {0}',
          options: { '-l': '--latest' },
       },
+      outdated: { cmd: 'pnpm outdated {0}' },
    },
 };
 
@@ -73,15 +76,12 @@ export const LOCKS: Record<string, Agent> = {
 // export const AGENTS = {
 //    npm: {
 //       audit: 'npm audit {0}',
-//       outdated: 'npm outdated {0}',
 //    },
 //    yarn: {
 //       audit: 'yarn audit',
-//       outdated: 'yarn outdated',
 //    },
 //    pnpm: {
 //       audit: 'pnpm audit',
-//       outdated: 'pnpm outdated',
 //    },
 // };
 

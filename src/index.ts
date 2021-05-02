@@ -8,6 +8,7 @@ import install, { InstallOptions } from './commands/install';
 import remove, { RemoveOptions } from './commands/remove';
 import list, { ListOptions } from './commands/list';
 import update, { UpdateOptions } from './commands/update';
+import outdated, { OutdatedOptions } from './commands/outdated';
 import frozen from './commands/frozen';
 import run from './commands/run';
 
@@ -68,6 +69,13 @@ program
    .description('update command')
    .action((packages: string[], options: UpdateOptions) => {
       update(packages, parseOptions(options));
+   });
+program
+   .command('outdated  [packages...]')
+   .option('-g', 'global', false)
+   .description('outdated command')
+   .action((packages: string[], options: OutdatedOptions) => {
+      outdated(packages, parseOptions(options));
    });
 program
    .command('default', { isDefault: true })
