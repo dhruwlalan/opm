@@ -3,10 +3,10 @@ import execa from 'execa';
 import findUp from 'find-up';
 import prompts from 'prompts';
 
-import { LOCKS, agents } from './agents';
+import { LOCKS, agents, Agent } from './agents';
 import cmdExists from '../utils/cmdExists';
 
-export default async () => {
+export default async (): Promise<Agent> => {
    const result = await findUp(Object.keys(LOCKS));
    let agent = result ? LOCKS[path.basename(result)] : null;
    let chosen = false;
@@ -20,7 +20,7 @@ export default async () => {
             choices: agents.map((value) => ({ title: value, value })),
          })
       ).agent;
-      if (!agent) return null;
+      if (!agent) process.exit(0);
       chosen = true;
    }
 
@@ -43,6 +43,8 @@ export default async () => {
 
       await execa.command(`npm i -g ${agent}`, { stdio: 'inherit' });
    }
+
+   if (!agent) process.exit(0);
 
    return agent;
 };

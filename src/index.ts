@@ -3,13 +3,13 @@ import updateNotifier from 'update-notifier';
 import { name, version } from '../package.json';
 import parseOptions from './utils/parseOptions';
 
+import outdated, { OutdatedOptions } from './commands/outdated';
 import install, { InstallOptions } from './commands/install';
+import update, { UpdateOptions } from './commands/update';
 import remove, { RemoveOptions } from './commands/remove';
 import list, { ListOptions } from './commands/list';
-import update, { UpdateOptions } from './commands/update';
-import outdated, { OutdatedOptions } from './commands/outdated';
-import audit from './commands/audit';
 import frozen from './commands/frozen';
+import audit from './commands/audit';
 import run from './commands/run';
 
 ///version///
@@ -25,6 +25,20 @@ program.usage('[command] [option]');
 program.version(`${version}`, '-v, --version', 'output the current version');
 
 ///commands///
+//#frozen#//
+program
+   .command('ci')
+   .description('clean install')
+   .allowExcessArguments(false)
+   .action(frozen);
+//#list#//
+program
+   .command('list')
+   .option('-g', 'global', false)
+   .description('list dependencies')
+   .allowExcessArguments(false)
+   .action((options: ListOptions) => list(parseOptions(options)));
+//#next#//
 program
    .command('i [packages...]')
    .option('-d, -D', 'devDependency', false)
@@ -44,22 +58,11 @@ program
    .allowUnknownOption()
    .action((script: string, args: string[]) => run(script, args));
 program
-   .command('ci [args...]')
-   .description('clean install')
-   .action((args: string[]) => frozen(args));
-program
    .command('r <packages...>')
    .option('-g', 'global', false)
    .description('remove command')
    .action((packages: string[], options: RemoveOptions) => {
       remove(packages, parseOptions(options));
-   });
-program
-   .command('list [args...]')
-   .option('-g', 'global', false)
-   .description('list command')
-   .action((args: string[], options: ListOptions) => {
-      list(args, parseOptions(options));
    });
 program
    .command('update  [packages...]')
