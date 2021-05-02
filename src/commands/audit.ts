@@ -1,27 +1,20 @@
 import getAgent from '../main/getAgent';
 import execute from '../utils/execute';
 
-export default async (args: string[]) => {
-   try {
-      const hasFix = args.includes('fix');
-
-      if (hasFix && args.length > 1) throw new Error('invalid arguments');
-
-      const agent = await getAgent();
-      if (!agent) process.exit(0);
-
-      if (!hasFix) {
-         const command = `${agent} audit`;
-         await execute(command);
-      }
-
-      if (hasFix && agent !== 'npm')
-         throw new Error(`${agent} dose not contain fix command`);
-
-      const command = 'npm audit fix';
-      await execute(command);
-   } catch (error) {
-      console.log('ERROR:', error.message);
-      process.exit(1);
+export default async (fix: string) => {
+   if (fix && fix !== 'fix') {
+      console.log(`invalid argument '${fix}'`);
+      process.exit(0);
    }
+
+   const agent = await getAgent();
+
+   if (!fix) await execute(`${agent} audit`);
+
+   if (fix && agent !== 'npm') {
+      console.log(`${agent} dose not contain fix command`);
+      process.exit(0);
+   }
+
+   await execute('npm audit fix');
 };

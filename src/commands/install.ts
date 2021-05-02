@@ -13,11 +13,9 @@ export interface InstallOptions {
 
 export default async (packages: string[], options: string[]) => {
    const agent = await getAgent();
-   if (!agent) process.exit(0);
 
    if (packages.length === 0 && options.length === 0) {
-      const command = `${agent} install`;
-      await execute(command);
+      await execute(`${agent} install`);
    }
 
    if (options.includes('-g')) {

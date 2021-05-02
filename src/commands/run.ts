@@ -5,42 +5,43 @@ import getPackageJson from '../utils/getPackageJson';
 import execute from '../utils/execute';
 
 export default async (cmd: string, args: string[]) => {
-   try {
-      const agent = await getAgent();
-      if (!agent) process.exit(0);
+   const agent = await getAgent();
 
-      const onlyRun = !cmd;
-      const ifPresentIndex = args.findIndex((o) => o === '--if-present');
-      const ifPresent = ifPresentIndex !== -1;
-      if (ifPresent) args.splice(ifPresentIndex, 1);
+   const noCmd = !cmd;
 
-      if (ifPresent || onlyRun) {
-         const scripts = getPackageJson().scripts || {};
-         const names = Object.keys(scripts);
-         const namesDesc = Object.entries(scripts) as [string, string][];
-         if (!names.length) process.exit(0);
+   const ifPresentIndex = args.findIndex((o) => o === '--if-present');
+   const ifPresent = ifPresentIndex !== -1;
+   if (ifPresent) args.splice(ifPresentIndex, 1);
 
-         if (onlyRun) {
-            const { script } = await prompts({
-               name: 'script',
-               message: 'script to run',
-               type: 'select',
-               choices: namesDesc.map(([value, description]) => ({
-                  title: value,
-                  value,
-                  description,
-               })),
-            });
-            if (!script) return;
-            cmd = script;
-         }
+   if (ifPresent || noCmd) {
+      const scripts = getPackageJson().scripts || {};
+      const names = Object.keys(scripts);
 
-         if (ifPresent && !names.includes(cmd)) process.exit(0);
+      if (names.length === 0) {
+         console.log('no scripts detected!');
+         process.exit(0);
       }
 
-      const command = getCommand(agent, 'run', [cmd, ...args]);
-      await execute(command);
-   } catch (error) {
-      process.exit(1);
+      const namesDesc = Object.entries(scripts) as [string, string][];
+
+      if (noCmd) {
+         const { script } = await prompts({
+            name: 'script',
+            message: 'script to run',
+            type: 'select',
+            choices: namesDesc.map(([value, description]) => ({
+               title: value,
+               value,
+               description,
+            })),
+         });
+         if (!script) process.exit(0);
+         cmd = script;
+      }
+
+      if (ifPresent && !names.includes(cmd)) process.exit(0);
    }
+
+   const command = getCommand(agent, 'run', [cmd, ...args]);
+   await execute(command);
 };
