@@ -1,14 +1,15 @@
 import './utils/info';
 import { program } from 'commander';
 import updateNotifier from 'update-notifier';
-
 import { name, version } from '../package.json';
+import parseOptions from './utils/parseOptions';
+
 import install, { InstallOptions } from './commands/install';
 import remove, { RemoveOptions } from './commands/remove';
 import list, { ListOptions } from './commands/list';
+import update, { UpdateOptions } from './commands/update';
 import frozen from './commands/frozen';
 import run from './commands/run';
-import parseOptions from './utils/parseOptions';
 
 ///version///
 updateNotifier({
@@ -59,6 +60,14 @@ program
    .description('list command')
    .action((args: string[], options: ListOptions) => {
       list(args, parseOptions(options));
+   });
+program
+   .command('update  [packages...]')
+   .option('-l', 'latest', false)
+   .option('-g', 'global', false)
+   .description('update command')
+   .action((packages: string[], options: UpdateOptions) => {
+      update(packages, parseOptions(options));
    });
 program
    .command('default', { isDefault: true })
