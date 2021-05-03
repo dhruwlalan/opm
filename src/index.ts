@@ -57,20 +57,34 @@ program
       const parsedOptions = parseOptions(options, true);
       install(packages, parsedOptions);
    });
+//#remove#//
+program
+   .command('r <packages...>')
+   .option('-g', 'global', false)
+   .description('remove packages')
+   .action((packages: string[], options: RemoveOptions) => {
+      remove(packages, parseOptions(options));
+   });
 //#run#//
 program
    .command('run [script] [args...]')
    .description('run scripts')
    .allowUnknownOption()
    .action((script: string, args: string[]) => run(script, args));
-//#next#//
 program
-   .command('r <packages...>')
+   .command('run [script] [args...]', { isDefault: true })
+   .description('run default command')
+   .allowUnknownOption()
+   .action((script: string, args: string[]) => run(script, args));
+//#outdated#//
+program
+   .command('outdated  [packages...]')
    .option('-g', 'global', false)
-   .description('remove command')
-   .action((packages: string[], options: RemoveOptions) => {
-      remove(packages, parseOptions(options));
+   .description('outdated packages')
+   .action((packages: string[], options: OutdatedOptions) => {
+      outdated(packages, parseOptions(options));
    });
+//#update#//
 program
    .command('update  [packages...]')
    .option('-l', 'latest', false)
@@ -79,23 +93,6 @@ program
    .action((packages: string[], options: UpdateOptions) => {
       update(packages, parseOptions(options));
    });
-program
-   .command('outdated  [packages...]')
-   .option('-g', 'global', false)
-   .description('outdated command')
-   .action((packages: string[], options: OutdatedOptions) => {
-      outdated(packages, parseOptions(options));
-   });
-program
-   .command('default', { isDefault: true })
-   .arguments('[cmd] [args...]')
-   .description('run default command')
-   .allowUnknownOption()
-   .action((cmd: string, args: string[]) => {
-      if (!cmd) return;
-      run(cmd, args);
-   });
-
-///no command///
+///empty command///
 program.parse();
 if (!program.args.length) install([], []);

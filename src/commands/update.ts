@@ -11,17 +11,14 @@ export interface UpdateOptions {
 
 export default async (packages: string[], options: string[]) => {
    const agent = await getAgent();
-   if (!agent) process.exit(0);
 
    if (options.includes('-g')) {
-      const command = `npm update -g ${packages.join(' ')}`;
-      await execute(command);
+      await execute(`npm update -g ${packages.join(' ')}`);
    }
 
    if (agent === 'npm') {
       if (!options.includes('-l') && packages.length === 0) {
-         const command = `npm update`;
-         await execute(command);
+         await execute('npm update');
       }
 
       const packageJson = getPackageJson();
@@ -50,22 +47,10 @@ export default async (packages: string[], options: string[]) => {
             if (optionalDeps.includes(p)) optionalCmd.push(p);
             if (peerDeps.includes(p)) peerCmd.push(p);
          });
-         if (depsCmd.length > 1) {
-            const command = depsCmd.join(' ');
-            await run(command);
-         }
-         if (devCmd.length > 1) {
-            const command = devCmd.join(' ');
-            await run(command);
-         }
-         if (optionalCmd.length > 1) {
-            const command = optionalCmd.join(' ');
-            await run(command);
-         }
-         if (peerCmd.length > 1) {
-            const command = peerCmd.join(' ');
-            await run(command);
-         }
+         if (depsCmd.length > 1) await run(depsCmd.join(' '));
+         if (devCmd.length > 1) await run(devCmd.join(' '));
+         if (optionalCmd.length > 1) await run(optionalCmd.join(' '));
+         if (peerCmd.length > 1) await run(peerCmd.join(' '));
          process.exit(0);
       }
 
@@ -76,22 +61,10 @@ export default async (packages: string[], options: string[]) => {
             if (optionalDeps.includes(p)) optionalCmd.push(`${p}@latest`);
             if (peerDeps.includes(p)) peerCmd.push(`${p}@latest`);
          });
-         if (depsCmd.length > 1) {
-            const command = depsCmd.join(' ');
-            await run(command);
-         }
-         if (devCmd.length > 1) {
-            const command = devCmd.join(' ');
-            await run(command);
-         }
-         if (optionalCmd.length > 1) {
-            const command = optionalCmd.join(' ');
-            await run(command);
-         }
-         if (peerCmd.length > 1) {
-            const command = peerCmd.join(' ');
-            await run(command);
-         }
+         if (depsCmd.length > 1) await run(depsCmd.join(' '));
+         if (devCmd.length > 1) await run(devCmd.join(' '));
+         if (optionalCmd.length > 1) await run(optionalCmd.join(' '));
+         if (peerCmd.length > 1) await run(peerCmd.join(' '));
          process.exit(0);
       }
 

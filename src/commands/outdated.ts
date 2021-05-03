@@ -8,11 +8,9 @@ export interface OutdatedOptions {
 
 export default async (packages: string[], options: string[]) => {
    const agent = await getAgent();
-   if (!agent) process.exit(0);
 
    if (options.includes('-g')) {
-      const command = `npm outdated -g ${packages.join(' ')}`;
-      await execute(command);
+      await execute(`npm outdated -g ${packages.join(' ')}`);
    }
 
    const command = getCommand(agent, 'outdated', packages);

@@ -8,11 +8,9 @@ export interface RemoveOptions {
 
 export default async (packages: string[], options: string[]) => {
    const agent = await getAgent();
-   if (!agent) process.exit(0);
 
    if (options.includes('-g')) {
-      const command = getCommand('npm', 'remove', ['-g', ...packages]);
-      await execute(command);
+      await execute(`npm r -g ${packages.join(' ')}`);
    }
 
    const command = getCommand(agent, 'remove', packages);
