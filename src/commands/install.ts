@@ -14,16 +14,12 @@ export interface InstallOptions {
 export default async (packages: string[], options: string[]) => {
    const agent = await getAgent();
 
-   if (packages.length === 0 && options.length === 0) {
+   if (packages.length === 0 && options.length === 0)
       await execute(`${agent} install`);
-   }
 
-   if (options.includes('-g')) {
-      const command = getCommand('npm', 'add', ['-g', ...packages]);
-      await execute(command);
-   }
+   if (options.includes('-g'))
+      await execute(getCommand('npm', 'add', ['-g', ...packages]));
 
    const resolvedOptions = resolveOptions(agent, 'add', options);
-   const command = getCommand(agent, 'add', [...resolvedOptions, ...packages]);
-   await execute(command);
+   await execute(getCommand(agent, 'add', [...resolvedOptions, ...packages]));
 };

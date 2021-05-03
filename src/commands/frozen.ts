@@ -5,7 +5,5 @@ import execute from '../utils/execute';
 export default async () => {
    const agent = await getAgent();
 
-   const command = getCommand(agent, 'frozen');
-
-   await execute(command);
+   await execute(getCommand(agent, 'frozen'));
 };

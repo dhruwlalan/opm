@@ -26,9 +26,9 @@ export default async (): Promise<Agent> => {
 
    if (agent && !cmdExists(agent)) {
       if (chosen) {
-         console.warn(`${agent} doesn't seem to be installed.\n`);
+         console.log(`${agent} doesn't seem to be installed.\n`);
       } else {
-         console.warn(
+         console.log(
             `Detected ${agent} but it doesn't seem to be installed.\n`,
          );
       }

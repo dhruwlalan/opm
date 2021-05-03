@@ -7,14 +7,12 @@ import execute, { run } from '../utils/execute';
 export default async (packages: string[], options: string[]) => {
    const agent = await getAgent();
 
-   if (options.includes('-g')) {
+   if (options.includes('-g'))
       await execute(`npm update -g ${packages.join(' ')}`);
-   }
 
    if (agent === 'npm') {
-      if (!options.includes('-l') && packages.length === 0) {
+      if (!options.includes('-l') && packages.length === 0)
          await execute('npm update');
-      }
 
       const packageJson = getPackageJson();
       const deps = packageJson.dependencies
@@ -87,9 +85,7 @@ export default async (packages: string[], options: string[]) => {
    }
 
    const resolvedOptions = resolveOptions(agent, 'update', options);
-   const command = getCommand(agent, 'update', [
-      ...packages,
-      ...resolvedOptions,
-   ]);
-   await execute(command);
+   await execute(
+      getCommand(agent, 'update', [...packages, ...resolvedOptions]),
+   );
 };
