@@ -3,6 +3,7 @@ import getAgent from '../main/getAgent';
 import getCommand from '../main/getCommand';
 import getPackageJson from '../utils/getPackageJson';
 import execute from '../utils/execute';
+import { log } from '../utils/clogs';
 
 export default async (cmd: string, args: string[]) => {
    const agent = await getAgent();
@@ -17,10 +18,7 @@ export default async (cmd: string, args: string[]) => {
       const scripts = getPackageJson().scripts || {};
       const names = Object.keys(scripts);
 
-      if (names.length === 0) {
-         console.log('no scripts detected!');
-         process.exit(0);
-      }
+      if (names.length === 0) log.erOut('no scripts detected!');
 
       const namesDesc = Object.entries(scripts) as [string, string][];
 

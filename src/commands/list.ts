@@ -1,7 +1,10 @@
 import getPackageJson from '../utils/getPackageJson';
 import execute from '../utils/execute';
 
-const showDeps = <T>(dependencies: T, type: string) => {
+const showDeps = <T extends Record<string, string>>(
+   dependencies: T,
+   type: string,
+) => {
    const deps = Object.keys(dependencies);
    if (!deps.length) process.exit(0);
 
