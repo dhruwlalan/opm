@@ -2,10 +2,6 @@ import getAgent from '../main/getAgent';
 import getCommand from '../main/getCommand';
 import execute from '../utils/execute';
 
-export interface RemoveOptions {
-   g: boolean;
-}
-
 export default async (packages: string[], options: string[]) => {
    const agent = await getAgent();
 

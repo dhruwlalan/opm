@@ -4,11 +4,6 @@ import getPackageJson from '../utils/getPackageJson';
 import resolveOptions from '../utils/resolveOptions';
 import execute, { run } from '../utils/execute';
 
-export interface UpdateOptions {
-   l: boolean;
-   g: boolean;
-}
-
 export default async (packages: string[], options: string[]) => {
    const agent = await getAgent();
 

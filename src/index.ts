@@ -3,11 +3,11 @@ import updateNotifier from 'update-notifier';
 import { name, version } from '../package.json';
 import parseOptions from './utils/parseOptions';
 
-import outdated, { OutdatedOptions } from './commands/outdated';
 import install, { InstallOptions } from './commands/install';
-import update, { UpdateOptions } from './commands/update';
-import remove, { RemoveOptions } from './commands/remove';
-import list, { ListOptions } from './commands/list';
+import outdated from './commands/outdated';
+import update from './commands/update';
+import remove from './commands/remove';
+import list from './commands/list';
 import frozen from './commands/frozen';
 import audit from './commands/audit';
 import run from './commands/run';
@@ -37,7 +37,7 @@ program
    .option('-g', 'global', false)
    .description('list dependencies')
    .allowExcessArguments(false)
-   .action((options: ListOptions) => list(parseOptions(options)));
+   .action((options: { g: boolean }) => list(parseOptions(options)));
 //#audit#//
 program
    .command('audit [fix]')
@@ -62,7 +62,7 @@ program
    .command('r <packages...>')
    .option('-g', 'global', false)
    .description('remove packages')
-   .action((packages: string[], options: RemoveOptions) => {
+   .action((packages: string[], options: { g: boolean }) => {
       remove(packages, parseOptions(options));
    });
 //#run#//
@@ -81,7 +81,7 @@ program
    .command('outdated  [packages...]')
    .option('-g', 'global', false)
    .description('outdated packages')
-   .action((packages: string[], options: OutdatedOptions) => {
+   .action((packages: string[], options: { g: boolean }) => {
       outdated(packages, parseOptions(options));
    });
 //#update#//
@@ -90,7 +90,7 @@ program
    .option('-l', 'latest', false)
    .option('-g', 'global', false)
    .description('update command')
-   .action((packages: string[], options: UpdateOptions) => {
+   .action((packages: string[], options: { g: boolean; l: boolean }) => {
       update(packages, parseOptions(options));
    });
 ///empty command///

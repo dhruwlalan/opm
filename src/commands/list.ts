@@ -1,10 +1,6 @@
 import getPackageJson from '../utils/getPackageJson';
 import execute from '../utils/execute';
 
-export interface ListOptions {
-   g: boolean;
-}
-
 const showDeps = <T>(dependencies: T, type: string) => {
    const deps = Object.keys(dependencies);
    if (!deps.length) process.exit(0);
