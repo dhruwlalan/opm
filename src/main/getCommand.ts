@@ -3,15 +3,14 @@ import { Agent, Command, AGENTS } from './agents';
 export default (agent: Agent, command: Command, args: string[] = []) => {
    if (!(agent in AGENTS)) throw new Error(`Unsupported agent "${agent}"`);
 
-   const com = AGENTS[agent][command];
-   const c = com['cmd' as keyof typeof com];
+   const agentCommandObj = AGENTS[agent][command];
+   const agentCommand = agentCommandObj['cmd' as keyof typeof agentCommandObj];
 
-   if (typeof c === 'function') return c(args);
+   if (typeof agentCommand === 'function') return agentCommand(args);
 
-   if (!c) {
-      throw new Error(
-         `Command "${command}" is not support by agent "${agent}"`,
-      );
+   if (!agentCommand) {
+      console.log(`Command "${command}" is not support by agent "${agent}"`);
+      process.exit(1);
    }
-   return c.replace('{0}', args.join(' ')).trim();
+   return agentCommand.replace('{0}', args.join(' ')).trim();
 };
