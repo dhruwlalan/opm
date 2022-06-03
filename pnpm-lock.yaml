@@ -8,6 +8,7 @@ specifiers:
   '@dhruwlalan/semantic-release-config': ^2.0.1
   '@types/node': ^15.0.1
   '@types/prompts': ^2.0.11
+  '@types/semantic-release': ^17.2.3
   '@types/update-notifier': ^5.0.0
   '@typescript-eslint/eslint-plugin': ^4.22.0
   '@typescript-eslint/parser': ^4.22.0
@@ -40,6 +41,7 @@ devDependencies:
   '@dhruwlalan/semantic-release-config': 2.0.1_semantic-release@19.0.2
   '@types/node': 15.14.9
   '@types/prompts': 2.0.14
+  '@types/semantic-release': 17.2.3
   '@types/update-notifier': 5.1.0
   '@typescript-eslint/eslint-plugin': 4.33.0_2b16db8efd93d95946a7f39d4a99f36e
   '@typescript-eslint/parser': 4.33.0_eslint@7.32.0+typescript@4.7.2
@@ -1662,6 +1664,12 @@ packages:
 
   /@types/retry/0.12.0:
     resolution: {integrity: sha512-wWKOClTTiizcZhXnPY4wikVAwmdYHp8q6DmC+EJUzAMsycb7HB32Kh9RN4+0gExjmPmZSAQjgURXIGATPegAvA==}
+    dev: true
+
+  /@types/semantic-release/17.2.3:
+    resolution: {integrity: sha512-iSqx8cZbDRQSCi/VR1LtmUV4OFiDZVAvfpVdVeq3rPveXYU+xb3bzmVphXSw7wkFgE7LwAoaoE96RV4nkL0Rvg==}
+    dependencies:
+      '@types/node': 15.14.9
     dev: true
 
   /@types/update-notifier/5.1.0:
